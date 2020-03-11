@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WeaponsShop : Shops
 {
@@ -8,9 +9,17 @@ public class WeaponsShop : Shops
     private string shopDescription;
     private string shopType;
 
+    public override void ChangeChoices()
+    {
+        testDrive.shopButtonChoices.SetActive(false);
+        testDrive.purchaseButtonChoices.SetActive(true);
+        testDrive.choiceOne.transform.GetChild(0).GetComponent<Text>().text = "Sword";
+        testDrive.choiceTwo.transform.GetChild(0).GetComponent<Text>().text = "Battle Axe";
+        testDrive.choiceThree.transform.GetChild(0).GetComponent<Text>().text = "Bow and Arrows";
+    }
+
     public override string GetShopType()
     {
-        Debug.Log("This is a weapons shop");
         shopType = "Weapons";
         return shopType;
     }
@@ -21,9 +30,9 @@ public class WeaponsShop : Shops
         return shopDescription;
     }
 
-    public override bool wantsToHearDescription()
+    public override bool wantsToHearDescription(bool userResponse)
     {
-        if (Input.GetKeyDown(KeyCode.Y))
+        if (userResponse)
         {
             return true;
         }

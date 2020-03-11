@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MagicShop : Shops
 {
@@ -8,9 +9,17 @@ public class MagicShop : Shops
     private string shopDescription;
     private string shopType;
 
+    public override void ChangeChoices()
+    {
+        testDrive.shopButtonChoices.SetActive(false);
+        testDrive.purchaseButtonChoices.SetActive(true);
+        testDrive.choiceOne.transform.GetChild(0).GetComponent<Text>().text = "Inferno Pire";
+        testDrive.choiceTwo.transform.GetChild(0).GetComponent<Text>().text = "Freezing Winds";
+        testDrive.choiceThree.transform.GetChild(0).GetComponent<Text>().text = "Crystal Ball";
+    }
+
     public override string GetShopType()
     {
-        Debug.Log("This is a magic shop");
         shopType = "Magic";
         return shopType;
     }
@@ -21,9 +30,9 @@ public class MagicShop : Shops
         return shopDescription;
     }
 
-    public override bool wantsToHearDescription()
+    public override bool wantsToHearDescription(bool userResponse)
     {
-        if(Input.GetKeyDown(KeyCode.Y))
+        if(userResponse)
         {
             return true;
         }

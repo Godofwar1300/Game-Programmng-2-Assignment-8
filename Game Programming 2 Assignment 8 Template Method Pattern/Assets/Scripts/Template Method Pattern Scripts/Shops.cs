@@ -11,32 +11,43 @@ public abstract class Shops
 
     private string greeting;
 
-    ShopTestDrive testDrive;
+    public ShopTestDrive testDrive;
 
     public void Interact()
     {
         testDrive = GameObject.Find("ShopkeeperTestDrive").GetComponent<ShopTestDrive>();
 
+        ChangeChoices();
+
         testDrive.actualTitleText.text = GetShopType() + " Shop";
 
         testDrive.actualBodyText.text = Greeting();
 
-        if(wantsToHearDescription())
+        if(wantsToHearDescription(testDrive.userResponse) == true && testDrive.inWeaponsShop)
         {
-            testDrive.actualBodyText.text = "Allow me to tell you!" + ShopDescription();
+            testDrive.actualBodyText.text = "Fine...I guess since you asked \n\n" + ShopDescription();
         }
-        else
+        else if(wantsToHearDescription(testDrive.userResponse) == true && testDrive.inMagicShop)
         {
-            testDrive.actualBodyText.text = "Ok, you're loss friend";
+            testDrive.actualBodyText.text = "Well great! Oh boy I can't wait for you to learn all about my little shop! \n\n" + ShopDescription();
+        }
+        else if(wantsToHearDescription(testDrive.userResponse) == false && testDrive.inWeaponsShop)
+        {
+            testDrive.actualBodyText.text = "(Grunts) Good, I didn't want to tell you anyway.";
+        }
+        else if (wantsToHearDescription(testDrive.userResponse) == false && testDrive.inMagicShop)
+        {
+            testDrive.actualBodyText.text = "Aww, that's too bad... Well, just take a look around and I'll be here if you need any help.";
         }
 
         // Maybe other things later
 
     }
-
     public abstract string GetShopType();
 
     public abstract string ShopDescription();
+
+    public abstract void ChangeChoices();
 
     public string Greeting()
     {
@@ -53,8 +64,9 @@ public abstract class Shops
 
     }
 
-    public virtual bool wantsToHearDescription()
+    public virtual bool wantsToHearDescription(bool userResponse)
     {
-        return true;
+        userResponse = true;
+        return userResponse;
     }
 }
