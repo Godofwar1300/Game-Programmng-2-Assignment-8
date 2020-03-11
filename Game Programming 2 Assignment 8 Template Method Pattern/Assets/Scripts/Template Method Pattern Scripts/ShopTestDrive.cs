@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ShopTestDrive : MonoBehaviour
 {
@@ -41,18 +42,19 @@ public class ShopTestDrive : MonoBehaviour
             userResponse = true;
 
             Debug.Log("The user said yes!");
-            //magicShop.wantsToHearDescription(userResponse);
-            //weaponsShop.wantsToHearDescription(userResponse);
         }
         else if(Input.GetKeyDown(KeyCode.N))
         {
             userResponse = false;
 
             Debug.Log("The user said no!");
-
-            //magicShop.wantsToHearDescription(userResponse);
-            //weaponsShop.wantsToHearDescription(userResponse);
         }
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
     }
 
     public void SetShop(string shop)

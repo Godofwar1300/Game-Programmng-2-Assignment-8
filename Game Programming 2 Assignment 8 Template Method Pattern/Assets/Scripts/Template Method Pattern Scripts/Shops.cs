@@ -33,7 +33,7 @@ public abstract class Shops
         }
         else if(wantsToHearDescription(testDrive.userResponse) == false && testDrive.inWeaponsShop)
         {
-            testDrive.actualBodyText.text = "(Grunts) Good, I didn't want to tell you anyway.";
+            testDrive.actualBodyText.text = "Good. I didn't want to tell you anyway.";
         }
         else if (wantsToHearDescription(testDrive.userResponse) == false && testDrive.inMagicShop)
         {
