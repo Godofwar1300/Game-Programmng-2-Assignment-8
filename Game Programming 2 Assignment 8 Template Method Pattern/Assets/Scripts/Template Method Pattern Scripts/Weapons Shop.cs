@@ -26,7 +26,7 @@ public class WeaponsShop : Shops
 
     public override string ShopDescription()
     {
-        shopDescription = "Buy something or get out, before I crush your puny skull";
+        shopDescription = "My name is Morzag, Buy something or get out, before I crush your puny skull";
         return shopDescription;
     }
 

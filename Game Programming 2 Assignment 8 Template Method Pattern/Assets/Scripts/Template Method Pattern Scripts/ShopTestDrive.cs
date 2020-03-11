@@ -22,7 +22,8 @@ public class ShopTestDrive : MonoBehaviour
     public bool inWeaponsShop;
     public bool inMagicShop;
 
-    Shops shops;
+    public string descriptionPrompt = "Would you like to hear the descriptions of the shops (Y/N)?";
+    public string userInputString;
 
 
     // Start is called before the first frame update
@@ -31,7 +32,7 @@ public class ShopTestDrive : MonoBehaviour
         magicShop = new MagicShop();
         weaponsShop = new WeaponsShop();
 
-        actualBodyText.text = "Would you like to hear the descriptions of the shops (Y/N)?";
+        actualBodyText.text = descriptionPrompt;
     }
 
     // Update is called once per frame
@@ -40,12 +41,19 @@ public class ShopTestDrive : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Y))
         {
             userResponse = true;
+            userInputString = descriptionPrompt + "\n\nYou Typed Yes!";
+
+            actualBodyText.text = userInputString;
 
             Debug.Log("The user said yes!");
         }
         else if(Input.GetKeyDown(KeyCode.N))
         {
             userResponse = false;
+            userInputString = descriptionPrompt + "\n\nYou Typed No!";
+
+            actualBodyText.text = userInputString;
+
 
             Debug.Log("The user said no!");
         }
