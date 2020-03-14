@@ -35,7 +35,7 @@ public class MagicShop : Shops
 
     public override string ShopDescription()
     {
-        shopDescription = "Hello, my name is Ezra and welcome to _____! The end to all your arcane needs.";
+        shopDescription = "Hello, my name is Ezra and welcome to Scrolls and Trolls! The end to all your arcane needs.";
         return shopDescription;
     }
 
