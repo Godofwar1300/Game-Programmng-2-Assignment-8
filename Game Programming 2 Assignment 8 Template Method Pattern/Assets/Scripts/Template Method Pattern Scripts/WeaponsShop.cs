@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿/*
+ * (Christopher Green)
+ * (WeaponsShop.cs)
+ * (Assignment 8)
+ * (This script is a class that inhertis from the sbstract superclass and defines it's own functionality for execution)
+ */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
