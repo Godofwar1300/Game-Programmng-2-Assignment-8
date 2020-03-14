@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿/*
+ * (Christopher Green)
+ * (Shop.cs)
+ * (Assignment 8)
+ * (This script is the abstract superclass for the different shop types and it defnes how methods are executed by using its template method for execution.)
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,67 +13,128 @@ using UnityEngine.UI;
 public abstract class Shops
 {
 
-    public Text bodyText;
-    public Text shopTitleText;
+    protected string greeting;
+    protected string shopDescription;
+    protected string shopType;
+    protected string shopkeeperResponse;
 
-    private string greeting;
-
-    public ShopTestDrive testDrive;
+    protected ShopTestDrive testDrive;
 
     public void Interact()
     {
-        testDrive = GameObject.Find("ShopkeeperTestDrive").GetComponent<ShopTestDrive>();
+        GetShopTestDriveReference();
 
         ChangeChoices();
 
-        testDrive.actualTitleText.text = GetShopType() + " Shop";
+        testDrive.actualTitleText.text = GetShopType();
 
         testDrive.actualBodyText.text = Greeting();
 
-        if(wantsToHearDescription(testDrive.userResponse) == true && testDrive.inWeaponsShop)
+        if(wantsToHearDescription(testDrive.userResponse))
         {
-            testDrive.actualBodyText.text = "Fine...I guess since you asked \n\n" + ShopDescription();
+            if(testDrive.inWeaponsShop)
+            {
+                testDrive.actualBodyText.text = ShopKeeperToUserResponse(testDrive.userResponse);
+            }
+            else if (testDrive.inMagicShop)
+            {
+                testDrive.actualBodyText.text = ShopKeeperToUserResponse(testDrive.userResponse);
+            }
+            else if(testDrive.inGeneralStoreShop)
+            {
+                testDrive.actualBodyText.text = ShopKeeperToUserResponse(testDrive.userResponse);
+            }
         }
-        else if(wantsToHearDescription(testDrive.userResponse) == true && testDrive.inMagicShop)
+        else if(!wantsToHearDescription(testDrive.userResponse))
         {
-            testDrive.actualBodyText.text = "Well great! Oh boy I can't wait for you to learn all about my little shop! \n\n" + ShopDescription();
+            if (testDrive.inWeaponsShop)
+            {
+                testDrive.actualBodyText.text = ShopKeeperToUserResponse(testDrive.userResponse);
+            }
+            else if(testDrive.inMagicShop)
+            {
+                testDrive.actualBodyText.text = ShopKeeperToUserResponse(testDrive.userResponse);
+            }
+            else if(testDrive.inGeneralStoreShop)
+            {
+                testDrive.actualBodyText.text = ShopKeeperToUserResponse(testDrive.userResponse);
+            }
         }
-        else if(wantsToHearDescription(testDrive.userResponse) == false && testDrive.inWeaponsShop)
-        {
-            testDrive.actualBodyText.text = "Good. I didn't want to tell you anyway.";
-        }
-        else if (wantsToHearDescription(testDrive.userResponse) == false && testDrive.inMagicShop)
-        {
-            testDrive.actualBodyText.text = "Aww, that's too bad... Well, just take a look around and I'll be here if you need any help.";
-        }
-
-        // Maybe other things later
-
     }
+
+    public void Buy(string item, int cost)
+    {
+        switch(item)
+        {
+            case "Inferno Scroll":
+                testDrive.totalMoneyText.text = "Total Money: $" + PurchaseItem(cost);
+                break;
+
+            case "Freezing Winds Coat":
+                testDrive.totalMoneyText.text = "Total Money: $" + PurchaseItem(cost);
+                break;
+
+            case "Crystal Ball":
+                testDrive.totalMoneyText.text = "Total Money: $" + PurchaseItem(cost);
+                break;
+
+            case "Sword":
+                testDrive.totalMoneyText.text = "Total Money: $" + PurchaseItem(cost);
+                break;
+
+            case "Battle Axe":
+                testDrive.totalMoneyText.text = "Total Money: $" + PurchaseItem(cost);
+                break;
+
+            case "Bow and Arrows":
+                testDrive.totalMoneyText.text = "Total Money: $" + PurchaseItem(cost);
+                break;
+
+            case "Apples":
+                testDrive.totalMoneyText.text = "Total Money: $" + PurchaseItem(cost);
+                break;
+
+            case "Bundle of Wood":
+                testDrive.totalMoneyText.text = "Total Money: $" + PurchaseItem(cost);
+                break;
+
+            case "Clothes":
+                testDrive.totalMoneyText.text = "Total Money: $" + PurchaseItem(cost);
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Abstract methods
+    /// </summary>
+
     public abstract string GetShopType();
+
+    public abstract string Greeting();
 
     public abstract string ShopDescription();
 
     public abstract void ChangeChoices();
 
-    public string Greeting()
-    {
-        if(GetShopType() == "Magic")
-        {
-            greeting = "Welcome to my shop traveller! How may I help you today? \n Do you wish to hear about my shop (Y/N)?";
-        }
-        else if(GetShopType() == "Weapons")
-        {
-            greeting = "Huh, you didn't run? Ok, would you like to know more about what I got to sell (Y/N)?";
-        }
+    public abstract string ShopKeeperToUserResponse(bool isInShop);
 
-        return greeting;
+    public abstract int PurchaseItem(int cost);
 
-    }
-
+    /// <summary>
+    /// My Hook
+    /// </summary>
     public virtual bool wantsToHearDescription(bool userResponse)
     {
-        userResponse = true;
+        userResponse = false;
         return userResponse;
+    }
+
+    /// <summary>
+    /// General methods
+    /// </summary>
+
+    public void GetShopTestDriveReference()
+    {
+        testDrive = GameObject.Find("ShopkeeperTestDrive").GetComponent<ShopTestDrive>();
     }
 }
